@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "name": "Portal de Reportes",
+      "description": "Creacion de un portal interno para seguimiento operativo y reportes.",
+      "status": "active",
+      "ownerId": 1,
+      "createdAt": "2026-03-22T00:00:00.000Z",
+      "updatedAt": "2026-03-22T00:00:00.000Z",
+      "tasks": [
+        {
+          "id": 1,
+          "title": "Definir backlog inicial",
+          "description": "Revisar requerimientos y priorizar entregables del sprint 1.",
+          "status": "done",
+          "dueDate": "2026-03-30",
+          "assigneeId": 2
+        },
+        {
+          "id": 2,
+          "title": "Implementar tablero principal",
+          "description": "Crear vista principal con indicadores de avance.",
+          "status": "in_progress",
+          "dueDate": "2026-04-05",
+          "assigneeId": 2
+        }
+      ]
+    },
+    {
+      "name": "prueba",
+      "description": "primera prueba",
+      "status": "active",
+      "ownerId": 2,
+      "tasks": [],
+      "createdAt": "2026-03-27T02:41:06.393Z",
+      "updatedAt": "2026-03-27T02:41:06.393Z",
+      "id": "GK4bFf1XOnc"
+    },
+    {
+      "name": "proyecto",
+      "description": "descripcion del proyecto",
+      "status": "draft",
+      "ownerId": 2,
+      "tasks": [],
+      "createdAt": "2026-03-27T02:41:28.152Z",
+      "updatedAt": "2026-03-27T02:41:28.152Z",
+      "id": "h7YTj_R3_hQ"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

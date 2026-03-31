@@ -1,0 +1,97 @@
+<section class="auth-shell">
+	<aside class="auth-hero">
+		<h1>Bienvenido</h1>
+		<p>Demo tecnica de gestion de proyectos con roles y tareas.</p>
+		<ul>
+			<li>Admin: usuarios, proyectos y tareas</li>
+			<li>User: proyectos y tareas</li>
+			<li>Viewer: solo lectura</li>
+		</ul>
+	</aside>
+
+	<article class="auth-card">
+		<div class="tab-row">
+			<button type="button" [class.active]="mode === 'login'" (click)="switchMode('login')">Login</button>
+			<button type="button" [class.active]="mode === 'register'" (click)="switchMode('register')">Register</button>
+		</div>
+
+		@if (errorMessage) {
+			<p class="message error">{{ errorMessage }}</p>
+		}
+		@if (infoMessage) {
+			<p class="message success">{{ infoMessage }}</p>
+		}
+
+		@if (mode === 'login') {
+			<form [formGroup]="loginForm" (ngSubmit)="submitLogin()" class="form-grid">
+				<label>
+					Correo
+					<input type="email" formControlName="email" placeholder="usuario@correo.com" />
+				</label>
+				@if (loginForm.controls.email.touched && loginForm.controls.email.invalid) {
+					<small class="error">Ingresa un correo valido.</small>
+				}
+
+				<label>
+					Contrasena
+					<input type="password" formControlName="password" placeholder="Minimo 6 caracteres" />
+				</label>
+				@if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
+					<small class="error">La contrasena es requerida.</small>
+				}
+
+				<button type="submit" [disabled]="submitting">
+					{{ submitting ? 'Ingresando...' : 'Iniciar sesion' }}
+				</button>
+			</form>
+		} @else {
+			<form [formGroup]="registerForm" (ngSubmit)="submitRegister()" class="form-grid">
+				<label>
+					Nombre
+					<input type="text" formControlName="name" placeholder="Nombre completo" />
+				</label>
+				@if (registerForm.controls.name.touched && registerForm.controls.name.invalid) {
+					<small class="error">Minimo 3 caracteres.</small>
+				}
+
+				<label>
+					Correo
+					<input type="email" formControlName="email" placeholder="usuario@correo.com" />
+				</label>
+				@if (registerForm.controls.email.touched && registerForm.controls.email.invalid) {
+					<small class="error">Ingresa un correo valido.</small>
+				}
+
+				<label>
+					Contrasena
+					<input type="password" formControlName="password" placeholder="Minimo 6 caracteres" />
+				</label>
+				@if (registerForm.controls.password.touched && registerForm.controls.password.invalid) {
+					<small class="error">La contrasena debe tener al menos 6 caracteres.</small>
+				}
+
+				<label>
+					Rol
+					<select formControlName="role">
+						<option value="user">User (gestiona proyectos)</option>
+						<option value="viewer">Viewer (solo lectura)</option>
+						@if (canCreateAdmins()) {
+							<option value="admin">Admin</option>
+						}
+					</select>
+				</label>
+
+				<button type="submit" [disabled]="submitting">
+					{{ submitting ? 'Guardando...' : 'Crear usuario' }}
+				</button>
+			</form>
+		}
+
+		<div class="demo-users">
+			<p>Usuarios demo:</p>
+			<small>admin@i2e.com / admin123</small>
+			<small>user@i2e.com / user123</small>
+			<small>viewer@i2e.com / viewer123</small>
+		</div>
+	</article>
+</section>

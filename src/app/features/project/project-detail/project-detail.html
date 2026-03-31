@@ -1,0 +1,100 @@
+@if (loading) {
+	<p class="feedback">Cargando proyecto...</p>
+} @else if (!project) {
+	<p class="feedback error">{{ errorMessage || 'Proyecto no disponible.' }}</p>
+	<a routerLink="/projects" class="back-link">Volver al listado</a>
+} @else {
+	<section class="detail-head">
+		<div>
+			<a routerLink="/projects" class="back-link">Volver al listado</a>
+			<h2>{{ project.name }}</h2>
+			<p>{{ project.description }}</p>
+		</div>
+
+		<div class="head-actions">
+			@if (canManageProjects()) {
+				<a [routerLink]="['/projects', project.id, 'edit']">Editar proyecto</a>
+				<button type="button" class="danger" (click)="deleteProject()">Eliminar proyecto</button>
+			}
+		</div>
+	</section>
+
+	@if (errorMessage) {
+		<p class="feedback error">{{ errorMessage }}</p>
+	}
+
+	<section class="task-layout">
+		<article class="task-list">
+			<h3>Tareas</h3>
+			@if (!project.tasks.length) {
+				<p class="feedback">No hay tareas registradas.</p>
+			} @else {
+				@for (task of project.tasks; track task.id) {
+					<div class="task-item">
+						<div>
+							<h4>{{ task.title }}</h4>
+							@if (task.description) {
+								<p>{{ task.description }}</p>
+							}
+						</div>
+						<div class="task-meta">
+							<span [class]="'status ' + task.status">{{ taskStatusLabel(task.status) }}</span>
+							@if (task.dueDate) {
+								<small>Vence: {{ task.dueDate | date: 'mediumDate' }}</small>
+							}
+						</div>
+						@if (canManageProjects()) {
+							<div class="task-actions">
+								<button type="button" (click)="startEditTask(task)">Editar</button>
+								<button type="button" class="danger" (click)="deleteTask(task.id)">Eliminar</button>
+							</div>
+						}
+					</div>
+				}
+			}
+		</article>
+
+		@if (canManageProjects()) {
+			<article class="task-form-card">
+				<h3>{{ editingTaskId ? 'Editar tarea' : 'Nueva tarea' }}</h3>
+				<form [formGroup]="taskForm" (ngSubmit)="saveTask()" class="task-form">
+					<label>
+						Titulo
+						<input type="text" formControlName="title" placeholder="Nombre de la tarea" />
+						@if (taskForm.controls.title.touched && taskForm.controls.title.invalid) {
+							<small>El titulo es requerido (minimo 3 caracteres).</small>
+						}
+					</label>
+
+					<label>
+						Descripcion
+						<textarea rows="3" formControlName="description"></textarea>
+					</label>
+
+					<label>
+						Estado
+						<select formControlName="status">
+							@for (status of taskStatusOptions; track status.value) {
+								<option [value]="status.value">{{ status.label }}</option>
+							}
+						</select>
+					</label>
+
+					<label>
+						Fecha limite
+						<input type="date" formControlName="dueDate" />
+					</label>
+
+					<div class="task-actions">
+						@if (editingTaskId) {
+							<button type="button" (click)="cancelEditTask()">Cancelar</button>
+						}
+						<button type="submit" [disabled]="submittingTask">
+							{{ submittingTask ? 'Guardando...' : 'Guardar tarea' }}
+						</button>
+					</div>
+				</form>
+			</article>
+		}
+	</section>
+}

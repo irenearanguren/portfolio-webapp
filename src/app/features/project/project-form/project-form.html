@@ -1,0 +1,44 @@
+<section class="form-shell">
+	<header>
+		<h2>{{ title }}</h2>
+		<p>Completa los datos del proyecto y guarda los cambios.</p>
+	</header>
+
+	@if (errorMessage) {
+		<p class="error-box">{{ errorMessage }}</p>
+	}
+
+	<form [formGroup]="form" (ngSubmit)="submit()" class="project-form">
+		<label>
+			Nombre
+			<input type="text" formControlName="name" placeholder="Ej: Portal de reportes" />
+			@if (form.controls.name.touched && form.controls.name.invalid) {
+				<small>El nombre es requerido (minimo 3 caracteres).</small>
+			}
+		</label>
+
+		<label>
+			Descripcion
+			<textarea rows="4" formControlName="description" placeholder="Describe el alcance del proyecto"></textarea>
+			@if (form.controls.description.touched && form.controls.description.invalid) {
+				<small>La descripcion es requerida (minimo 10 caracteres).</small>
+			}
+		</label>
+
+		<label>
+			Estado
+			<select formControlName="status">
+				@for (option of statusOptions; track option.value) {
+					<option [value]="option.value">{{ option.label }}</option>
+				}
+			</select>
+		</label>
+
+		<div class="actions">
+			<a routerLink="/projects">Cancelar</a>
+			<button type="submit" [disabled]="submitting">
+				{{ submitting ? 'Guardando...' : 'Guardar proyecto' }}
+			</button>
+		</div>
+	</form>
+</section>

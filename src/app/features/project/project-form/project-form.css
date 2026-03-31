@@ -1,0 +1,85 @@
+.form-shell {
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	border-radius: 0.9rem;
+	padding: 1rem;
+	max-width: 780px;
+}
+
+.form-shell h2 {
+	font-size: 1.5rem;
+	font-weight: 800;
+}
+
+.form-shell p {
+	color: #64748b;
+}
+
+.project-form {
+	display: grid;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.project-form label {
+	display: grid;
+	gap: 0.35rem;
+	font-weight: 600;
+	color: #1e293b;
+}
+
+.project-form input,
+.project-form textarea,
+.project-form select {
+	border: 1px solid #cbd5e1;
+	border-radius: 0.65rem;
+	padding: 0.7rem;
+	font-weight: 400;
+}
+
+.project-form small {
+	color: #b91c1c;
+}
+
+.actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.6rem;
+}
+
+.actions a,
+.actions button {
+	padding: 0.65rem 0.9rem;
+	border-radius: 0.6rem;
+	font-weight: 700;
+	text-decoration: none;
+	border: 1px solid #cbd5e1;
+	background: #fff;
+	color: #0f172a;
+}
+
+.actions button {
+	border: none;
+	background: #0f766e;
+	color: #fff;
+}
+
+.error-box {
+	background: #fee2e2;
+	color: #b91c1c;
+	border: 1px solid #fecaca;
+	border-radius: 0.7rem;
+	padding: 0.65rem;
+	margin-top: 0.8rem;
+}
+
+@media (max-width: 640px) {
+	.actions {
+		flex-direction: column-reverse;
+	}
+
+	.actions a,
+	.actions button {
+		text-align: center;
+	}
+}

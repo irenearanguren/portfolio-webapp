@@ -1,0 +1,90 @@
+.app-bg {
+	min-height: 100vh;
+	background:
+		radial-gradient(circle at 15% 20%, rgba(15, 118, 110, 0.13), transparent 30%),
+		radial-gradient(circle at 85% 10%, rgba(2, 132, 199, 0.12), transparent 35%),
+		#f8fafc;
+}
+
+.app-header {
+	display: grid;
+	grid-template-columns: 1fr auto auto;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem 1.4rem;
+	border-bottom: 1px solid #e2e8f0;
+	background: rgba(255, 255, 255, 0.85);
+	backdrop-filter: blur(6px);
+	position: sticky;
+	top: 0;
+	z-index: 50;
+}
+
+.brand h1 {
+	margin: 0;
+	font-size: 1.25rem;
+	font-weight: 900;
+}
+
+.brand p {
+	margin: 0;
+	color: #64748b;
+	font-size: 0.85rem;
+}
+
+.main-nav {
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.main-nav a,
+.user-box a,
+.user-box button {
+	border: 1px solid #cbd5e1;
+	text-decoration: none;
+	background: #fff;
+	color: #0f172a;
+	border-radius: 0.6rem;
+	padding: 0.45rem 0.7rem;
+	font-size: 0.86rem;
+	cursor: pointer;
+}
+
+.main-nav .active {
+	border-color: #0f766e;
+	color: #0f766e;
+}
+
+.user-box {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.user-box div {
+	display: grid;
+}
+
+.user-box small {
+	color: #64748b;
+	text-transform: capitalize;
+}
+
+.app-content {
+	width: min(1200px, 100%);
+	margin: 0 auto;
+	padding: 1.2rem;
+}
+
+@media (max-width: 940px) {
+	.app-header {
+		grid-template-columns: 1fr;
+		align-items: flex-start;
+	}
+
+	.user-box {
+		width: 100%;
+		justify-content: space-between;
+	}
+}

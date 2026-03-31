@@ -1,0 +1,42 @@
+<section class="page-head">
+	<div>
+		<h2>Proyectos</h2>
+		<p>Listado general de proyectos y su estado actual.</p>
+	</div>
+	@if (canManageProjects()) {
+		<button type="button" (click)="goToCreate()">Nuevo proyecto</button>
+	}
+</section>
+
+@if (errorMessage) {
+	<p class="feedback error">{{ errorMessage }}</p>
+}
+
+@if (loading) {
+	<p class="feedback">Cargando proyectos...</p>
+} @else if (!projects.length) {
+	<p class="feedback">No hay proyectos registrados.</p>
+} @else {
+	<section class="project-grid">
+		@for (project of projects; track project.id) {
+			<article class="project-card">
+				<div class="card-top">
+					<h3>{{ project.name }}</h3>
+					<span [class]="'status ' + project.status">{{ statusLabel(project.status) }}</span>
+				</div>
+				<p>{{ project.description }}</p>
+				<div class="meta">
+					<small>Tareas: {{ project.tasks.length }}</small>
+					<small>Actualizado: {{ (project.updatedAt || project.createdAt) | date: 'short' }}</small>
+				</div>
+				<div class="actions">
+					<a [routerLink]="['/projects', project.id]">Ver detalle</a>
+					@if (canManageProjects()) {
+						<a [routerLink]="['/projects', project.id, 'edit']">Editar</a>
+						<button type="button" class="danger" (click)="deleteProject(project.id)">Eliminar</button>
+					}
+				</div>
+			</article>
+		}
+	</section>
+}
